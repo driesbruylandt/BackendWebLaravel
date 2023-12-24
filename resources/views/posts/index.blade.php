@@ -14,7 +14,19 @@
                         </div>
                     @endif
 
-                    // ALle posts
+                    @foreach($posts as $post)
+                        <div class="card">
+                            <div class="card-header">
+                                {{ $post->title }}
+                            </div>
+                            <div class="card-body">
+                                {{ $post->message }}
+                                <br>
+                                <small>geschreven door {{ $post->user->name }} op {{$post->created_at->format('d/m/y \o\m H:i')}}</small>
+                            </div>
+                        </div>
+                        <br>
+                    @endforeach
                 </div>
             </div>
         </div>
