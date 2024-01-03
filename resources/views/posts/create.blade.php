@@ -1,55 +1,21 @@
-@extends('layouts.app')
+<x-app-layout>
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-8">
+        <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="p-6 text-xl text-gray-900 border-b border-gray-200">
+                <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                <input type="text" name="title" id="title" class="mt-1 p-2 border rounded-md w-full" required>
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">New post</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('posts.store') }}">
-                        @csrf
-                        @method('POST')
-                        <div class="row mb-3">
-                            <label for="title" class="col-md-4 col-form-label text-md-end">Title</label>
-
-                            <div class="col-md-6">
-                                <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" required autofocus>
-
-                                @error('title')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="message" class="col-md-4 col-form-label text-md-end">Content</label>
-
-                            <div class="col-md-6">
-                                <textarea id="message" type="text" class="form-control @error('message') is-invalid @enderror" name="message" value="{{ old('message') }}" required></textarea>
-
-                                @error('message')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Add post
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                <label for="message" class="block mt-4 text-sm font-medium text-gray-700">Content</label>
+                <textarea name="message" id="message" class="mt-1 p-2 border rounded-md w-full" required></textarea>
+                
+                <div class="mb-4">
+                    <label for="cover_image" class="block text-gray-700 text-sm font-bold mb-2">Cover Image:</label>
+                    <input type="file" name="cover_image" id="cover_image" class="border rounded w-full py-2 px-3" accept="image/*">
                 </div>
+
+                <button type="submit" class="mt-4 bg-blue-500 text-white p-2 rounded-md">Add Post</button>
             </div>
-        </div>
+        </form>
     </div>
-</div>
-@endsection
+</x-app-layout>

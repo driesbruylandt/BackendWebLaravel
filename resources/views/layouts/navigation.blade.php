@@ -12,10 +12,38 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="nav-link">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('faq.index')" :active="request()->routeIs('faq.index')" class="nav-link">
+                        {{ __('FAQ') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('contact.form')" :active="request()->routeIs('contact.form')" class="nav-link">
+                        {{ __('Contact') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('about.show')" :active="request()->routeIs('about.show')" class="nav-link">
+                        {{ __('About') }}
+                    </x-nav-link>
+                </div>
+                @if(auth()->user()->is_admin)
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('posts.create')" :active="request()->routeIs('posts.create')" class="nav-link">
+                            {{ __('Maak post') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('admin.promote.form')" :active="request()->routeIs('admin.promote.form')" class="nav-link">
+                            {{ __('Maak Admin') }}
+                        </x-nav-link>
+                    </div>
+                @endif
+
             </div>
 
             <!-- Settings Dropdown -->

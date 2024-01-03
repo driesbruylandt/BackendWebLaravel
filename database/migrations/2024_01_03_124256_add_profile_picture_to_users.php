@@ -12,14 +12,14 @@ return new class extends Migration
     public function up()
 {
     Schema::table('users', function (Blueprint $table) {
-        $table->date('birthday')->nullable();
+        $table->string('profile_picture')->nullable();
     });
 }
 
 public function down()
 {
     Schema::table('users', function (Blueprint $table) {
-        $table->dropColumn('birthday');
+        $table->dropColumn('profile_picture');
     });
 }
 };

@@ -53,7 +53,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+            'birthday' => ['nullable', 'date', 'date_format:Y-m-d'],        ]);
     }
 
     /**
@@ -64,10 +64,17 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $profilePicturePath = null;
+        if (isset($data['profile_picture']) && $data['profile_picture']->isValid()) {
+            $profilePicturePath = $data['profile_picture']->store('profile_pictures', 'public');
+        }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'birthday' => $data['birthday'],
+            'profile_picture' => $profilePicturePath,
         ]);
     }
 }

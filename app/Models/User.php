@@ -11,6 +11,10 @@ use Laravel\Jetstream\HasProfilePhoto;
 
 class User extends Authenticatable
 {
+    public function votes()
+{
+    return $this->hasMany(Vote::class);
+}
     public function posts()
     {
         return $this->hasMany('App\Models\Posts');
@@ -26,6 +30,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin',
+        'birthday',
+        'about_me',
+        'profile_picture',
     ];
 
     /**
@@ -46,5 +54,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'birthday' => 'date',
     ];
 }

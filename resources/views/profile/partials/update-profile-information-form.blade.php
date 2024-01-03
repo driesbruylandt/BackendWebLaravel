@@ -1,5 +1,5 @@
 <section>
-    <header>
+    <header class="mt-8">
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('Profile Information') }}
         </h2>
@@ -8,7 +8,12 @@
             {{ __("Update your account's profile information and email address.") }}
         </p>
     </header>
-
+    <x-input-label for="name" :value="__('Profielfoto')" class="mt-8 mb-2" />
+    @if ($user->profile_picture)
+    <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="{{ $user->name }}'s Profile Picture" style="height: 150px; width: 150px;">
+@else
+    <p>No profile picture yet.</p>
+@endif
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
     </form>
@@ -47,6 +52,19 @@
             @endif
         </div>
 
+        <div>
+        <x-input-label for="birthday" :value="__('Birthday')" />
+        <input id="birthday" name="birthday" type="date" class="mt-1 block w-full" 
+            value="{{ old('birthday', $user->birthday ? $user->birthday->format('Y-m-d') : null) }}" />
+        <x-input-error class="mt-2" :messages="$errors->get('birthday')" />
+        </div>
+
+        <div class="mt-4">
+            <x-input-label for="about_me" :value="__('About Me')" />
+            <textarea id="about_me" name="about_me" class="form-control block w-full">{{ old('about_me', $user->about_me) }}</textarea>
+            <x-input-error class="mt-2" :messages="$errors->get('about_me')" />
+        </div>
+        
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 

@@ -12,31 +12,49 @@
                     Bekijk alle posts van afgelopen chiro-zondag hier
                 </div>
             </div>
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-8">
+            <div class=" overflow-hidden shadow-sm sm:rounded-lg mt-8">
             @foreach ($posts as $post)
-                    <div class="p-6 text-xl text-gray-900 border-b border-gray-200">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <h2 class="text-2xl font-semibold mb-2">{{ $post->title }}</h2>
-                                <p class="text-gray-700">{{ $post->content }}</p>
-                                <p class="text-gray-500 mt-2">Posted by {{ $post->user->name }} on {{ $post->created_at->format('F j, Y') }}</p>
-                            </div>
-                            <div class="flex items-center space-x-4">
-                                <button class="text-green-500">
-                                    Upvote <span class="ml-1">{{ $post->upvotes }}</span>
-                                </button>
-                                <button class="text-red-500">
-                                    Downvote <span class="ml-1">{{ $post->downvotes }}</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="mt-4">
-                            <p class="text-gray-600">{{ $post->message }}</p>
-                        </div>
+            <div class="p-6 bg-white rounded-lg mb-4">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                        @if ($post->cover_image)
+                            <img src="{{ asset('storage/' . $post->cover_image) }}" alt="{{ $post->title }} Cover Image" class="w-32 h-32 object-cover rounded-full">
+                        @endif
                     </div>
+                    <div class="flex-1">
+                        <h2 class="text-xl font-semibold mb-2">{{ $post->title }}</h2>
+                        <p class="text-gray-700">{{ $post->message }}</p>
+                        <p class="text-gray-500 mt-2">Posted by {{ $post->user->name }} on {{ $post->created_at->format('F j, Y') }}</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <form action="{{ route('posts.upvote', $post->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="text-green-500">
+                                Upvote <span class="ml-1">{{ $post->upvotes()->count() }}</span>
+                            </button>
+                        </form>
+                        <form action="{{ route('posts.downvote', $post->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="text-red-500">
+                                Downvote <span class="ml-1">{{ $post->downvotes()->count() }}</span>
+                            </button>
+                        </form>
+                    </div>
+                    <div>
+                    @if (auth()->user() && (auth()->user()->is_admin || auth()->user()->id === $post->user_id))
+                        <a href="{{ route('posts.edit', $post) }}" class="text-blue-500 mr-4">Edit</a>
+                        <form action="{{ route('posts.destroy', $post) }}" method="POST" class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="text-red-500">Delete</button>
+                        </form>
+                    @endif
+                    </div>
+                </div>
+            </div>
                 @endforeach
 
-    {{ $posts->links() }} <!-- Display pagination links -->
+    {{ $posts->links() }}
 </div>
         </div>
 
