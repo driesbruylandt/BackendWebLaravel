@@ -1,11 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="w-40 grid grid-cols-2 gap-8">
+        <div class="w-40 grid grid-cols-3 gap-8">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('FAQs') }}
         </h2>
         <a href="{{route('faq.create')}}" class="font-semibold text-xl text-gray-800 leading-tight w-24">
             {{ __('Maak FAQ') }}
+        </a>
+        <a href="{{route('faqCategories.index')}}" class="ml-12 font-semibold text-xl text-gray-800 leading-tight w-48">
+            {{ __('Manage Categories') }}
         </a>
         </div>
     </x-slot>
@@ -18,9 +21,9 @@
                 </div>
             </div>
             <div class="overflow-hidden shadow-sm sm:rounded-lg mt-8">
-        @foreach ($faqs->groupBy('category') as $category => $categoryFaqs)
+        @foreach ($faqs->groupBy('category.name') as $category => $categoryFaqs)
             <div class="mb-4">
-                <h2 class="text-2xl font-semibold mb-2">{{ $category }}</h2>
+                <h2 class="text-2xl font-semibold mb-2">{{ $category}}</h2>
                 @foreach ($categoryFaqs as $faq)
                     <div class="p-6 bg-white rounded-lg mb-4">
                         <div class="flex items-center space-x-4">

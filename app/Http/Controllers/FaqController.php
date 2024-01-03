@@ -3,19 +3,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Faq;
 use Illuminate\Http\Request;
+use App\Models\FaqCategory;
 
 class FaqController extends Controller
 {
     public function index()
     {
-        $faqs = Faq::orderBy('category')->paginate(10); // Adjust the number based on your preference
+        $faqs = Faq::orderBy('category_id')->paginate(10);
 
     return view('faq.index', compact('faqs'));
     }
 
     public function create()
     {
-        return view('faq.create');
+        $categories = FaqCategory::all();
+    return view('faq.create', ['categories' => $categories]);
     }
 
     public function store(Request $request)
@@ -24,24 +26,24 @@ class FaqController extends Controller
         $request->validate([
             'question' => 'required',
             'answer' => 'required',
-            'category' => 'required|in:Algemeen,Posts,Account', // Validate the category field
+            'category_id' => 'required|exists:faq_categories,id',
         ]);
 
-        // Create a new FAQ
-        $faq = Faq::create([
+        Faq::create([
             'question' => $request->input('question'),
             'answer' => $request->input('answer'),
-            'category' => $request->input('category'),
+            'category_id' => $request->input('category_id'),
         ]);
 
-        // Redirect to the index page with a success message
         return redirect()->route('faq.index')->with('success', 'FAQ created successfully.');
     }
 
     public function edit(Faq $faq)
-    {
-        return view('faq.edit', compact('faq'));
-    }
+{
+    $categories = FaqCategory::all();
+    return view('faq.edit', ['categories' => $categories, 'faq' => $faq]);
+}
+
 
     public function update(Request $request, Faq $faq)
     {

@@ -8,8 +8,11 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-xl text-center text-gray-900">
-                    Bekijk alle posts van afgelopen chiro-zondag hier
+            <div class="p-6 text-4xl text-center font-bold text-gray-900">
+                    Welkom op ons chiro platform
+                </div>    
+            <div class="pb-4 text-xl text-center text-gray-900">
+                    Bekijk hier alle posts van afgelopen chiro-zondag hier
                 </div>
             </div>
             <div class=" overflow-hidden shadow-sm sm:rounded-lg mt-8">

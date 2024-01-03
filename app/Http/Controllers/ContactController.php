@@ -40,7 +40,6 @@ class ContactController extends Controller
 
         $contact = Contact::findOrFail($id);
 
-        // Update the contact with the admin's reply
         $contact->update([
             'admin_reply' => $request->input('admin_reply'),
         ]);

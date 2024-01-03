@@ -8,11 +8,18 @@ use App\Models\Post;
 use App\Models\Vote;
 use Auth;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class PostsController extends Controller
 {
-    public function showPosts(){
-        $posts = Post::orderBy('created_at', 'desc')->paginate(10);
+    public function showPosts()
+    {    $now = Carbon::now();
+        $lastSunday = $now->startOfWeek()->subDay();
+
+        $posts = Post::where('created_at', '>=', $lastSunday)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
         return view('dashboard', ['posts' => $posts]);
     }
 
@@ -29,11 +36,9 @@ class PostsController extends Controller
         ]);
         
         if ($request->hasFile('cover_image')) {
-            // Store the uploaded file in the 'public' disk under the 'cover_images' directory
             $path = $request->file('cover_image')->store('cover_images', 'public');
         }
 
-        // Create and store the new post
         $post = new Post();
         $post->title = $request->input('title');
         $post->message = $request->input('message');
@@ -76,8 +81,6 @@ class PostsController extends Controller
 
     public function edit(Post $post)
     {
-
-
         return view('posts.edit', compact('post'));
     }
 
@@ -90,19 +93,15 @@ class PostsController extends Controller
             'cover_image' => 'image|nullable|max:1999',
         ]);
 
-        // Handle cover image upload
         if ($request->hasFile('cover_image')) {
-            // Store the uploaded file in the 'public' disk under the 'cover_images' directory
             $path = $request->file('cover_image')->store('cover_images', 'public');
 
-            // Update the file path in the database
             $post->update([
                 'title' => $request->input('title'),
                 'message' => $request->input('message'),
                 'cover_image' => $path,
             ]);
         } else {
-            // If no cover image is provided
             $post->update($request->only('title', 'message'));
         }
 

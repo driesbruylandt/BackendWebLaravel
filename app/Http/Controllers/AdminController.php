@@ -17,7 +17,6 @@ class AdminController extends Controller
     {
         $username = $request->input('username');
 
-        // Find the user by username
         $user = User::where('name', $username)->first();
 
         if (!$user) {
@@ -25,9 +24,7 @@ class AdminController extends Controller
                 ->with('error', 'User not found.');
         }
 
-        // Check if the authenticated user has the authority to promote users
         if (auth()->user()->is_admin) {
-            // Promote the user to admin
             $user->update(['is_admin' => 1]);
 
             return redirect()->route('admin.promote.form')
