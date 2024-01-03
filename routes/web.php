@@ -22,8 +22,6 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth','admin.access'])->group(function () {
     // Post routes
     Route::resource('posts', PostsController::class)->except(['index', 'show']);
-    Route::post('/posts/{post}/upvote', [PostsController::class, 'upvote'])->name('posts.upvote');
-    Route::post('/posts/{post}/downvote', [PostsController::class, 'downvote'])->name('posts.downvote');
 
     // Promote user routes
     Route::get('/admin/promote/form', [AdminController::class, 'showPromoteForm'])
@@ -42,6 +40,8 @@ Route::middleware(['auth','admin.access'])->group(function () {
     Route::post('/contact/{id}/reply', [ContactController::class, 'sendReply'])->name('contact.reply');
 });
 
+Route::post('/posts/{post}/upvote', [PostsController::class, 'upvote'])->name('posts.upvote');
+Route::post('/posts/{post}/downvote', [PostsController::class, 'downvote'])->name('posts.downvote');
 
 Route::view('/about', 'about')->name('about.show');
 
