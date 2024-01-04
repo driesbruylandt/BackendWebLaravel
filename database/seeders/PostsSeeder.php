@@ -17,10 +17,18 @@ class PostsSeeder extends Seeder
             'title' => 'Leuk spel gespeeld!',
             'message' => 'Deze zondag hebben we een leuk spel gespeeld!',
             'user_id' => '1',
+            'upvotes' => '0',
+            'downvotes' => '0',
+            'created_at' => now(),
+            'updated_at' => now(),
         ],[
             'title' => 'Nieuwe update!',
             'message' => 'Er is een nieuwe update uitgekomen!',
             'user_id' => '1',
+            'upvotes' => '0',
+            'downvotes' => '0',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]]);
     }
 }

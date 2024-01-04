@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('posts', function (Blueprint $table) {
-            Schema::dropIfExists('posts');
             $table->id();
             $table->string('title');
             $table->text('message');
@@ -20,8 +19,7 @@ return new class extends Migration
             $table->timestamps();
             $table->integer('upvotes');
             $table->integer('downvotes');
-            $table->text('image')->nullable();
-            $table->timestamps();
+            $table->string('cover_image')->nullable();
         });
     }
 
