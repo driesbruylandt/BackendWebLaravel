@@ -40,6 +40,9 @@ Route::middleware(['auth','admin.access'])->group(function () {
     Route::post('/contact/{id}/reply', [ContactController::class, 'sendReply'])->name('contact.reply');
 });
 
+Route::get('/contact', [ContactController::class, 'showContactForm'])->name('contact.form');
+Route::post('/contact', [ContactController::class, 'submitContactForm']);
+
 Route::post('/posts/{post}/upvote', [PostsController::class, 'upvote'])->name('posts.upvote');
 Route::post('/posts/{post}/downvote', [PostsController::class, 'downvote'])->name('posts.downvote');
 
