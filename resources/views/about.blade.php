@@ -43,6 +43,10 @@
                             Chat GPT 3.5</em> - Retrieved from
                             <a href="https://chat.openai.com/" class="text-blue-500">https://chat.openai.com/</a>
                         </li>
+                        <li>
+                            Github Repo</em> - Retrieved from
+                            <a href="https://github.com/driesbruylandt/BackendWebLaravel" class="text-blue-500">https://github.com/driesbruylandt/BackendWebLaravel</a>
+                        </li>
                     </ul>
                 </section>
             </div>
