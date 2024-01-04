@@ -17,6 +17,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
+
 });
 
 Route::middleware(['auth','admin.access'])->group(function () {
@@ -31,7 +33,6 @@ Route::middleware(['auth','admin.access'])->group(function () {
 
     // FAQ routes
     Route::resource('faq', FaqController::class)->except(['index']);
-    Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
     Route::resource('faqCategories', FaqCategoryController::class);
     
     // Contact routes

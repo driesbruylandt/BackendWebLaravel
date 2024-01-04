@@ -4,12 +4,14 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('FAQs') }}
         </h2>
-        <a href="{{route('faq.create')}}" class="font-semibold text-xl text-gray-800 leading-tight w-24">
-            {{ __('Maak FAQ') }}
-        </a>
-        <a href="{{route('faqCategories.index')}}" class="ml-12 font-semibold text-xl text-gray-800 leading-tight w-48">
-            {{ __('Manage Categories') }}
-        </a>
+        @if(auth()->user() && auth()->user()->is_admin)
+            <a href="{{ route('faq.create') }}" class="font-semibold text-xl text-gray-800 leading-tight w-24">
+                {{ __('Maak FAQ') }}
+            </a>
+            <a href="{{ route('faqCategories.index') }}" class="ml-12 font-semibold text-xl text-gray-800 leading-tight w-48">
+                {{ __('Manage Categories') }}
+            </a>
+        @endif
         </div>
     </x-slot>
 
