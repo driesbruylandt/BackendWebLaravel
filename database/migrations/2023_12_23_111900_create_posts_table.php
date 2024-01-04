@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('posts', function (Blueprint $table) {
+            Schema::dropIfExists('posts');
             $table->id();
             $table->string('title');
             $table->text('message');
