@@ -17,6 +17,10 @@ return new class extends Migration
             $table->text('message');
             $table->integer('user_id');
             $table->timestamps();
+            $table->integer('upvotes');
+            $table->integer('downvotes');
+            $table->text('image')->nullable();
+            $table->timestamps();
         });
     }
 

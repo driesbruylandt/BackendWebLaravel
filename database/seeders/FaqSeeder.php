@@ -12,7 +12,7 @@ class FaqSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('contacts')->insert([
+        DB::table('faqs')->insert([
             [
             'question' => 'Hoe kan ik een account aanmaken?',
             'answer' => 'Klik op de knop "Registreer" en vul het formulier in.',

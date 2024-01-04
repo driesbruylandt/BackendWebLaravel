@@ -12,14 +12,20 @@ return new class extends Migration
     public function up()
 {
     Schema::table('users', function (Blueprint $table) {
+        $table->id();
+        $table->text('name')->nullable();
+        $table->text('email')->nullable();
+        $table->text('password')->nullable();
+        $table->boolean('is_admin')->default(0);
+        $table->timestamps();
         $table->date('birthday')->nullable();
+        $table->text('about_me')->nullable();
+        $table->text('profile_picture')->nullable();
     });
 }
 
 public function down()
 {
-    Schema::table('users', function (Blueprint $table) {
-        $table->dropColumn('birthday');
-    });
+    Schema::dropIfExists('users');
 }
 };
