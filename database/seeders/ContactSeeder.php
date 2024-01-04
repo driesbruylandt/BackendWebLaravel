@@ -12,7 +12,7 @@ class ContactSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->insert(
+        DB::table('contacts')->insert(
             [
                 // Non-admin stuurt een bericht
             'name' => 'no_admin',
